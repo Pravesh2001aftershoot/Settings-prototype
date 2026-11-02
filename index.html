@@ -3,11 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gallery Access Settings</title>
+<title>Aftershoot Gallery Settings Prototype</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap">
 </head>
 <body>
+<title>Gallery Access Settings</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap">
 <style>
   :root{
     --bg:#fafafa;
@@ -296,7 +299,7 @@
   }
   .tab.active{background:var(--accent-tint);color:var(--accent);}
 
-  .search-shell{position:relative;flex:0 1 240px;min-width:180px;}
+  .search-shell{position:relative;flex:0 1 240px;min-width:180px;margin-left:auto;}
   .search-shell input{
     width:100%;height:34px;background:var(--input-bg);
     border:1px solid var(--edge);border-radius:var(--radius-pill);
@@ -495,20 +498,38 @@
   .pv-modal textarea{width:100%;min-height:70px;border:1px solid #ededed;background:var(--input-bg);border-radius:12px;padding:10px 12px;font:400 14px var(--font-sans);resize:vertical;outline:none;}
   .cm{font-size:13px;color:var(--text-1);background:#f6f6f6;border-radius:10px;padding:8px 10px;margin-bottom:6px;}
   .demo{font-size:11.5px;color:var(--text-3);margin:-4px 4px 10px;}
+
+  .tpl-select{flex:none;max-width:240px;height:36px;border-radius:var(--radius-pill);border:1px solid var(--edge);background:var(--input-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16' fill='none' stroke='%2371717a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E") no-repeat right 12px center;appearance:none;-webkit-appearance:none;padding:0 32px 0 14px;font:600 12.5px var(--font-sans);color:var(--text-1);cursor:pointer;}
+  .btn-outline{flex:none;display:inline-flex;align-items:center;gap:6px;height:36px;border-radius:var(--radius-pill);border:1px solid var(--edge);background:var(--surface);color:var(--text-1);padding:0 14px;font:600 12.5px var(--font-sans);cursor:pointer;}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);} .btn-outline svg{width:13px;height:13px;}
+  .tpl-sub{font-size:13px;color:var(--text-2);margin:-6px 0 16px;line-height:1.45;}
+  .modal-field select{width:100%;height:38px;border-radius:12px;border:1px solid var(--edge);background:var(--input-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16' fill='none' stroke='%2371717a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E") no-repeat right 12px center;appearance:none;-webkit-appearance:none;padding:0 32px 0 12px;font-size:13.5px;color:var(--text-1);font-family:inherit;}
+  .match-row{margin-top:14px;display:flex;align-items:center;gap:8px;}
+  .info-tip{position:relative;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;color:var(--text-3);cursor:help;outline-offset:2px;}
+  .info-tip:hover,.info-tip:focus-visible{color:var(--accent);}
+  .info-tip svg{width:15px;height:15px;}
+  .info-tip::after{content:attr(data-tip);position:absolute;left:-10px;bottom:calc(100% + 10px);width:max-content;max-width:260px;background:var(--chip-dark);color:#fff;font-size:12px;line-height:1.4;font-weight:500;padding:8px 10px;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.16);opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .12s ease, transform .12s ease;z-index:20;}
+  .info-tip::before{content:"";position:absolute;left:4px;bottom:calc(100% + 5px);width:10px;height:10px;background:var(--chip-dark);transform:translateY(4px) rotate(45deg);opacity:0;pointer-events:none;transition:opacity .12s ease, transform .12s ease;z-index:19;}
+  .info-tip:hover::after,.info-tip:focus-visible::after{opacity:1;transform:translateY(0);}
+  .info-tip:hover::before,.info-tip:focus-visible::before{opacity:1;transform:translateY(0) rotate(45deg);}
+  @media (max-width:640px){#tplBar .row-head{flex-wrap:wrap;}}
 </style>
 
-<div class="view-switch"><div class="seg" role="tablist"><button type="button" class="on" id="viewSettings">Photographer settings</button><button type="button" id="viewPreview">Client preview</button></div></div>
+<div class="view-switch"><div class="seg" role="tablist"><button type="button" class="on" id="viewSettings">Settings Dashboard</button><button type="button" id="viewPreview">View Sample Preview</button></div></div>
 
 <div class="page" id="settingsView">
-  <div class="page-head">
-    <div>
-      <h1>Gallery Access Settings</h1>
-      <p class="page-sub">Emily &amp; Rascal — full gallery · desktop web only</p>
+  <div class="card" id="tplBar">
+    <div class="row-head">
+      <div class="icon-badge" id="tplIcon"></div>
+      <div class="text-block">
+        <div class="title">Settings template</div>
+        <div class="desc">Changes save to this template automatically, so you can reuse it in other galleries</div>
+      </div>
+      <select class="tpl-select" id="tplSelect" aria-label="Settings template"></select>
     </div>
-    <div class="mode-badge" id="modeBadge"><span class="dot"></span><span id="modeBadgeText">Anyone can view</span></div>
   </div>
 
-  <div class="panel-stack">
+  <div class="panel-stack" style="margin-top:16px">
     <div class="card">
       <div class="row-head">
         <div class="icon-badge" id="anyoneIcon"></div>
@@ -600,10 +621,23 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 
+<div class="modal-overlay" id="tplOverlay" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="tplTitle">
+    <div class="modal-head">
+      <h2 id="tplTitle">Create new template</h2>
+      <button class="modal-close" id="tplClose" aria-label="Close"></button>
+    </div>
+    <p class="tpl-sub">Save your current settings as a template you can reuse in other galleries.</p>
+    <div class="modal-field" style="margin-bottom:12px"><div class="field-shell"><input id="tplName" type="text" placeholder="Template name" maxlength="40" autocomplete="off"></div></div>
+    <div class="modal-field"><div class="field-shell"><select id="tplGenre" aria-label="Genre"></select></div></div>
+    <div class="modal-actions"><button class="btn-primary" id="tplCreate" disabled>Create template</button></div>
+  </div>
+</div>
+
 <section id="previewView" hidden>
   <div class="pv-head">
     <div>
-      <h1>Client preview</h1>
+      <h1>Sample preview</h1>
       <p class="page-sub">What each audience sees, based on the current settings · sample photos</p>
     </div>
     <button class="pv-ghost" data-pv="restart" type="button">Restart session</button>
@@ -627,6 +661,7 @@
     return '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"'+(extra||'')+'>'+inner+'</svg>';
   }
   var ICONS = {
+    info: svg('<circle cx="8" cy="8" r="6"/><path d="M8 7.2v3.6"/><circle cx="8" cy="5.1" r=".6" fill="currentColor" stroke="none"/>'),
     mail: svg('<rect x="2" y="3.5" width="12" height="9" rx="1.5"/><path d="M2.5 4.5 8 9l5.5-4.5"/>'),
     shield: svg('<path d="M8 1.5 13.5 3.5V7.5C13.5 11 11 13 8 14.5C5 13 2.5 11 2.5 7.5V3.5L8 1.5Z"/>'),
     scan: svg('<path d="M2 5.2V3.3a1 1 0 0 1 1-1h2"/><path d="M11 2.3h2a1 1 0 0 1 1 1v2"/><path d="M14 10.8v2a1 1 0 0 1-1 1h-2"/><path d="M5 13.8H3a1 1 0 0 1-1-1v-2"/><circle cx="8" cy="8" r="1.5"/>'),
@@ -636,6 +671,7 @@
     imageBroken: svg('<rect x="2" y="2.5" width="12" height="11" rx="1.5"/><path d="M2.4 10.6 5.8 7.2l2.4 2.4 2-2 3.4 3.4"/><circle cx="5.4" cy="5.6" r=".85" fill="currentColor" stroke="none"/>'),
     download: svg('<path d="M8 2v7.6"/><path d="M4.7 7 8 10.4 11.3 7"/><path d="M2.5 13.5h11"/>'),
     share: svg('<path d="M8 10.5V2"/><path d="M5 5l3-3 3 3"/><path d="M3 8.5v4a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-4"/>'),
+    layout: svg('<rect x="2" y="2.5" width="12" height="11" rx="1.6"/><path d="M2 6h12"/><path d="M6.2 6v7.5"/>'),
     lock: svg('<rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5.2 7V5a2.8 2.8 0 0 1 5.6 0v2"/>'),
     play: svg('<path d="M5 3.2v9.6L12.6 8Z" fill="currentColor"/>'),
     chevronDown: svg('<path d="M4 6l4 4 4-4"/>'),
@@ -724,6 +760,57 @@
 
   function current(){
     return state.topMode === 'anyone' ? state.data.anyone : state.data[state.activeRole];
+  }
+
+  // ---------- match across roles + templates ----------
+  var ALL_ROLES = ['client','guest','vendor'];
+  var GENRES = ['Wedding','Portrait','Newborn & Family','Events','Commercial','Other'];
+  state.matchRoles = true;           // "Match the settings across all roles" — on by default
+
+  // Copy one role's settings onto the others. The approved people list is
+  // per role, so it is never overwritten.
+  function syncFrom(role){
+    var src = state.data[role];
+    ALL_ROLES.forEach(function(r){
+      if (r === role) return;
+      var people = state.data[r].email.emails;
+      var c = clone(src); c.email.emails = people; state.data[r] = c;
+    });
+  }
+  function syncRoles(){
+    if (state.matchRoles && state.topMode === 'roles') syncFrom(state.activeRole);
+  }
+  function snapshot(){
+    return clone({topMode:state.topMode, roles:state.roles, matchRoles:state.matchRoles, data:state.data});
+  }
+  syncFrom('client');
+
+  var tplDefault = {id:'tpl-default', name:'Default', genre:'General', snap:snapshot()};
+  var snapWedding = snapshot();
+  snapWedding.topMode = 'roles';
+  ALL_ROLES.forEach(function(r){ snapWedding.data[r].downloads.pin = {on:true, code:'4821'}; });
+  var snapPortrait = snapshot();
+  snapPortrait.topMode = 'anyone';
+  snapPortrait.data.anyone.collectEmail.on = true;
+  snapPortrait.data.anyone.downloads = {on:true, bulk:false, pin:{on:false, code:''},
+    image:{on:true, res:{'1600px':true,'2400px':false,'3200px':false}, limit:''},
+    video:{on:true, res:{'4K':true,'1080p':false}, limit:''}};
+  snapPortrait.data.anyone.sharing = {on:true, bulk:false, image:true, video:true};
+  state.templates = [
+    tplDefault,
+    {id:'tpl-wedding', name:'Wedding – Clients & Guests', genre:'Wedding', snap:snapWedding},
+    {id:'tpl-portrait', name:'Portrait – Public Gallery', genre:'Portrait', snap:snapPortrait}
+  ];
+  state.activeTemplate = 'tpl-default';
+
+  function activeTemplate(){
+    return state.templates.filter(function(t){ return t.id === state.activeTemplate; })[0];
+  }
+  // Every change is saved to the active template.
+  function persist(){
+    syncRoles();
+    var t = activeTemplate();
+    if (t) t.snap = snapshot();
   }
 
   // ---------- small helpers ----------
@@ -819,11 +906,23 @@
       }).join('');
       expandHost.innerHTML =
         '<div class="divider"></div>' +
-        '<div class="chip-row">' + chips + addButtons + '</div>';
+        '<div class="chip-row">' + chips + addButtons + '</div>' +
+        '<div class="match-row">' +
+          checkboxRow(state.matchRoles, 'match-roles-toggle', '', 'Match the settings across all roles') +
+          '<span class="info-tip" tabindex="0" role="img" aria-label="About matching settings" id="matchInfo" data-tip="'+esc(state.matchRoles
+            ? 'Changes on one tab apply to Client, Guest and Vendor. Uncheck to set each role separately.'
+            : 'Each role has its own settings. Check this to make every role match the one you’re viewing.')+'">'+ICONS.info+'</span>' +
+        '</div>';
     }
 
-    var badgeText = document.getElementById('modeBadgeText');
-    badgeText.textContent = anyoneOn ? 'Anyone can view' : ROLE_LABELS[state.activeRole];
+  }
+
+  function renderTemplateBar(){
+    var sel = document.getElementById('tplSelect');
+    sel.innerHTML = '<option value="__new__">+ New template</option><option disabled>──────────</option>' + state.templates.map(function(t){
+      var label = t.id === 'tpl-default' ? t.name : t.name + ' · ' + t.genre;
+      return '<option value="'+esc(t.id)+'"'+(t.id === state.activeTemplate ? ' selected' : '')+'>'+esc(label)+'</option>';
+    }).join('');
   }
 
   // ---------- render: tabs + url/expiry fields ----------
@@ -1028,6 +1127,7 @@
   }
 
   function renderGroups(){
+    persist();
     var host = document.getElementById('groups');
     var q = state.search.trim().toLowerCase();
     var inRoles = state.topMode === 'roles';
@@ -1058,6 +1158,7 @@
   }
 
   function renderAll(){
+    renderTemplateBar();
     renderTopCards();
     renderTabsAndFields();
     renderGroups();
@@ -1205,6 +1306,15 @@
       copyText(current().downloads.pin.code, 'Download PIN copied');
       return;
     }
+    if (action === 'match-roles-toggle'){
+      state.matchRoles = !state.matchRoles;
+      if (state.matchRoles){
+        syncFrom(state.activeRole);
+        toast('Settings from ' + ROLE_LABELS[state.activeRole] + ' now apply to all roles');
+      }
+      renderAll();
+      return;
+    }
     if (action === 'bulk-toggle'){
       var bs = current()[t.dataset.id];
       bs.bulk = !bs.bulk;
@@ -1237,6 +1347,7 @@
     var input = e.target.closest('[data-bind]');
     if (!input) return;
     setDeep(current(), input.dataset.bind, input.value);
+    persist();
   });
 
   document.getElementById('anyoneIcon').innerHTML = ICONS.shield;
@@ -1659,6 +1770,51 @@
   document.getElementById('viewSettings').addEventListener('click', function(){ setView('settings'); });
   document.getElementById('viewPreview').addEventListener('click', function(){ setView('preview'); });
 
+
+  // ---------- template picker + create-new modal ----------
+  function applyTemplate(id){
+    var t = state.templates.filter(function(x){ return x.id === id; })[0];
+    if (!t) return;
+    var snap = clone(t.snap);
+    state.topMode = snap.topMode; state.roles = snap.roles; state.matchRoles = snap.matchRoles; state.data = snap.data;
+    if (state.roles.indexOf(state.activeRole) === -1) state.activeRole = state.roles[0];
+    state.activeTemplate = id;
+    state.search = ''; document.getElementById('searchInput').value = '';
+    renderAll();
+    toast('Applied “' + t.name + '” to this gallery');
+  }
+  document.getElementById('tplSelect').addEventListener('change', function(e){
+    if (e.target.value === '__new__'){ renderTemplateBar(); openTplModal(); return; }
+    applyTemplate(e.target.value);
+  });
+
+  var tplOverlay = document.getElementById('tplOverlay');
+  var tplName = document.getElementById('tplName');
+  var tplGenre = document.getElementById('tplGenre');
+  var tplCreate = document.getElementById('tplCreate');
+  tplGenre.innerHTML = '<option value="" disabled selected>Select genre</option>' + GENRES.map(function(g){ return '<option>'+esc(g)+'</option>'; }).join('');
+  document.getElementById('tplIcon').innerHTML = ICONS.layout;
+  document.getElementById('tplClose').innerHTML = ICONS.x;
+  function tplValid(){ tplCreate.disabled = !(tplName.value.trim() && tplGenre.value); }
+  function openTplModal(){
+    tplName.value = ''; tplGenre.selectedIndex = 0; tplValid();
+    tplOverlay.hidden = false; setTimeout(function(){ tplName.focus(); }, 30);
+  }
+  function closeTplModal(){ tplOverlay.hidden = true; }
+  document.getElementById('tplClose').addEventListener('click', closeTplModal);
+  tplOverlay.addEventListener('click', function(e){ if (e.target === tplOverlay) closeTplModal(); });
+  tplName.addEventListener('input', tplValid);
+  tplGenre.addEventListener('change', tplValid);
+  tplName.addEventListener('keydown', function(e){ if (e.key === 'Enter' && !tplCreate.disabled) tplCreate.click(); });
+  tplCreate.addEventListener('click', function(){
+    var name = tplName.value.trim(), genre = tplGenre.value;
+    if (!name || !genre) return;
+    var t = {id:'tpl-' + Date.now(), name:name, genre:genre, snap:snapshot()};
+    state.templates.push(t); state.activeTemplate = t.id;
+    closeTplModal(); renderTemplateBar();
+    toast('Template “' + name + '” created');
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !tplOverlay.hidden) closeTplModal(); });
 
   renderAll();
 })();
